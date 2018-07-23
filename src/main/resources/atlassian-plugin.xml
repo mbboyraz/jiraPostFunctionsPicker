@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}" plugins-version="2">
+  <plugin-info>
+    <description>${project.description}</description>
+    <version>${project.version}</version>
+    <vendor name="${project.organization.name}" url="${project.organization.url}"/>
+    <param name="plugin-icon">images/pluginIcon.png</param>
+    <param name="plugin-logo">images/pluginLogo.png</param>
+  </plugin-info>
+  <!-- add our i18n resource -->
+  <resource type="i18n" name="i18n" location="user-picker"/>
+  <!-- add our web resources -->
+  <web-resource key="user-picker-resources" name="user-picker Web Resources">
+    <dependency>com.atlassian.auiplugin:ajs</dependency>
+    <resource type="download" name="user-picker.css" location="/css/user-picker.css"/>
+    <resource type="download" name="user-picker.js" location="/js/user-picker.js"/>
+    <resource type="download" name="images/" location="/images"/>
+    <context>user-picker</context>
+  </web-resource>
+  <workflow-function key="user-picker-post-function" name="userPickerPF" i18n-name-key="user-picker-post-function.name" class="com.mbb.jira.postfunction.jira.workflow.UserPickerPostFunctionFactory">
+    <description key="user-picker-post-function.description">User Picker Copy PF</description>
+    <function-class>com.mbb.jira.postfunction.jira.workflow.UserPickerPostFunction</function-class>
+    <orderable>true</orderable>
+    <unique>true</unique>
+    <deletable>true</deletable>
+    <resource type="velocity" name="view" location="templates/postfunctions/user-picker-post-function.vm"/>
+    <resource type="velocity" name="input-parameters" location="templates/postfunctions/user-picker-post-function-input.vm"/>
+    <resource type="velocity" name="edit-parameters" location="templates/postfunctions/user-picker-post-function-input.vm"/>
+  </workflow-function>
+  <customfield-type name="User Picker PF" i18n-name-key="user-picker-pf.name" key="user-picker-pf" class="com.mbb.jira.postfunction.jira.customfields.UserPickerPF">
+    <description key="user-picker-pf.description">The User Picker PF Plugin</description>
+    <resource name="view" type="velocity" location="/templates/customfields/user-picker-pf/view.vm"/>
+    <resource name="edit" type="velocity" location="/templates/customfields/user-picker-pf/edit.vm"/>
+  </customfield-type>
+</atlassian-plugin>
