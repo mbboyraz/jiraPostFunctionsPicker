@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}" plugins-version="2">
+<atlassian-plugin key="${project.groupId}.${project.artifactId}" name="${project.name}" plugins-version="2">
   <plugin-info>
     <description>${project.description}</description>
     <version>${project.version}</version>
@@ -9,7 +9,7 @@
     <param name="plugin-logo">images/pluginLogo.png</param>
   </plugin-info>
   <!-- add our i18n resource -->
-  <resource type="i18n" name="i18n" location="user-picker"/>
+
   <!-- add our web resources -->
   <web-resource key="user-picker-resources" name="user-picker Web Resources">
     <dependency>com.atlassian.auiplugin:ajs</dependency>
@@ -18,12 +18,10 @@
     <resource type="download" name="images/" location="/images"/>
     <context>user-picker</context>
   </web-resource>
+    <resource type="i18n" name="i18n" location="atlassian-plugin"/>
   <workflow-function key="user-picker-post-function" name="userPickerPF" i18n-name-key="user-picker-post-function.name" class="com.mbb.jira.postfunction.jira.workflow.UserPickerPostFunctionFactory">
     <description key="user-picker-post-function.description">User Picker Copy PF</description>
     <function-class>com.mbb.jira.postfunction.jira.workflow.UserPickerPostFunction</function-class>
-    <orderable>true</orderable>
-    <unique>true</unique>
-    <deletable>true</deletable>
     <resource type="velocity" name="view" location="templates/postfunctions/user-picker-post-function.vm"/>
     <resource type="velocity" name="input-parameters" location="templates/postfunctions/user-picker-post-function-input.vm"/>
     <resource type="velocity" name="edit-parameters" location="templates/postfunctions/user-picker-post-function-input.vm"/>
